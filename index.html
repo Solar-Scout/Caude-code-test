@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL_404 // LEVEL ???</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --fluorescent-yellow: #E8E4C9;
+            --sickly-yellow: #D4CFA0;
+            --institutional-beige: #C4B998;
+            --carpet-brown: #8B7355;
+            --mold-green: #4A5D4A;
+            --void-black: #0A0A0A;
+            --entity-shadow: #1A1A1A;
+            --buzzing-white: #FFFEF0;
+            --warning-red: #8B0000;
+            --text-dark: #2A2A2A;
+            --terminal-green: #00FF41;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Special Elite', 'VT323', monospace;
+            background-color: var(--sickly-yellow);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Fluorescent Light Flicker Overlay */
+        .fluorescent-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 254, 240, 0.03) 0%,
+                transparent 10%,
+                transparent 90%,
+                rgba(255, 254, 240, 0.03) 100%
+            );
+            animation: fluorescentFlicker 0.1s infinite;
+        }
+
+        @keyframes fluorescentFlicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.97; }
+            51% { opacity: 1; }
+            75% { opacity: 0.98; }
+        }
+
+        /* Random aggressive flicker */
+        @keyframes aggressiveFlicker {
+            0%, 100% { opacity: 1; background: transparent; }
+            10% { opacity: 0.5; }
+            11% { opacity: 1; }
+            50% { opacity: 0.3; background: rgba(0,0,0,0.3); }
+            51% { opacity: 1; background: transparent; }
+            80% { opacity: 0.7; }
+            81% { opacity: 1; }
+        }
+
+        /* Infinite Corridor Background */
+        .corridor-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .corridor {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200%;
+            height: 200%;
+            background:
+                /* Ceiling tiles */
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    transparent 98px,
+                    rgba(0,0,0,0.1) 98px,
+                    rgba(0,0,0,0.1) 100px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    transparent 98px,
+                    rgba(0,0,0,0.1) 98px,
+                    rgba(0,0,0,0.1) 100px
+                ),
+                /* Base color with stains */
+                radial-gradient(ellipse at 30% 20%, rgba(74, 93, 74, 0.15) 0%, transparent 30%),
+                radial-gradient(ellipse at 70% 60%, rgba(74, 93, 74, 0.1) 0%, transparent 25%),
+                radial-gradient(ellipse at 50% 80%, rgba(139, 115, 85, 0.2) 0%, transparent 40%),
+                linear-gradient(to bottom, var(--fluorescent-yellow), var(--sickly-yellow));
+            animation: corridorDrift 30s ease-in-out infinite;
+        }
+
+        @keyframes corridorDrift {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-48%, -52%) scale(1.02); }
+        }
+
+        /* Fluorescent Light Bars */
+        .light-bars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .light-bar {
+            position: absolute;
+            height: 8px;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,254,240,0.9),
+                rgba(255,254,240,0.6),
+                rgba(255,254,240,0.9)
+            );
+            box-shadow:
+                0 0 30px 10px rgba(255,254,240,0.3),
+                0 0 60px 20px rgba(255,254,240,0.1);
+            animation: lightFlicker 4s ease-in-out infinite;
+        }
+
+        .light-bar:nth-child(1) { top: 15%; left: 10%; width: 25%; animation-delay: 0s; }
+        .light-bar:nth-child(2) { top: 15%; left: 40%; width: 20%; animation-delay: 0.5s; }
+        .light-bar:nth-child(3) { top: 15%; right: 10%; width: 22%; animation-delay: 1s; }
+        .light-bar:nth-child(4) { top: 50%; left: 5%; width: 15%; animation-delay: 1.5s; opacity: 0.6; }
+        .light-bar:nth-child(5) { top: 50%; right: 8%; width: 18%; animation-delay: 2s; opacity: 0.7; }
+
+        @keyframes lightFlicker {
+            0%, 100% { opacity: 1; }
+            10% { opacity: 0.95; }
+            20% { opacity: 1; }
+            30% { opacity: 0.9; }
+            31% { opacity: 1; }
+            50% { opacity: 0.98; }
+            70% { opacity: 0.85; }
+            71% { opacity: 1; }
+            90% { opacity: 0.92; }
+        }
+
+        /* Entity Shadows - appear in peripheral vision */
+        .entity {
+            position: fixed;
+            width: 60px;
+            height: 180px;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                var(--entity-shadow) 20%,
+                var(--void-black) 50%,
+                var(--entity-shadow) 80%,
+                transparent 100%
+            );
+            opacity: 0;
+            pointer-events: none;
+            z-index: 2;
+            filter: blur(2px);
+            transition: opacity 0.3s ease-out;
+        }
+
+        .entity.visible {
+            animation: entityAppear 0.5s ease-out forwards;
+        }
+
+        @keyframes entityAppear {
+            0% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 0.15; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.1) translateX(20px); }
+        }
+
+        .entity:nth-child(1) { left: 5%; top: 30%; }
+        .entity:nth-child(2) { right: 3%; top: 40%; }
+        .entity:nth-child(3) { left: 8%; bottom: 20%; }
+        .entity:nth-child(4) { right: 6%; bottom: 25%; }
+
+        /* Doorway silhouettes */
+        .doorway {
+            position: fixed;
+            width: 80px;
+            height: 160px;
+            background: var(--void-black);
+            opacity: 0.3;
+            z-index: 1;
+            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+        }
+
+        .doorway::after {
+            content: "";
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 100px;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgba(0,0,0,0.5) 30%,
+                rgba(0,0,0,0.8) 50%,
+                rgba(0,0,0,0.5) 70%,
+                transparent
+            );
+            opacity: 0;
+            animation: doorwayEntity 15s ease-in-out infinite;
+        }
+
+        @keyframes doorwayEntity {
+            0%, 85%, 100% { opacity: 0; }
+            90% { opacity: 0.4; }
+            95% { opacity: 0; }
+        }
+
+        .doorway:nth-child(1) { left: 2%; top: 25%; animation-delay: 0s; }
+        .doorway:nth-child(2) { right: 1%; top: 35%; animation-delay: 5s; }
+
+        /* Water stain drips */
+        .water-stain {
+            position: fixed;
+            width: 3px;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgba(74, 93, 74, 0.3),
+                rgba(74, 93, 74, 0.5),
+                rgba(74, 93, 74, 0.3),
+                transparent
+            );
+            opacity: 0.6;
+            z-index: 2;
+            animation: waterDrip 8s ease-in infinite;
+        }
+
+        .water-stain:nth-child(1) { left: 15%; height: 100px; top: 0; animation-delay: 0s; }
+        .water-stain:nth-child(2) { left: 45%; height: 150px; top: 0; animation-delay: 2s; }
+        .water-stain:nth-child(3) { right: 20%; height: 80px; top: 0; animation-delay: 4s; }
+
+        @keyframes waterDrip {
+            0%, 100% { transform: scaleY(1); opacity: 0.4; }
+            50% { transform: scaleY(1.2); opacity: 0.7; }
+        }
+
+        /* Level Indicator */
+        .level-indicator {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            opacity: 0.7;
+            z-index: 100;
+            background: rgba(228, 224, 201, 0.8);
+            padding: 8px 12px;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+
+        .level-indicator::before {
+            content: "⚠ ";
+            color: var(--warning-red);
+        }
+
+        /* Main Container */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Terminal Frame - Found Emergency Device */
+        .terminal-frame {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow:
+                0 10px 40px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 0 100px rgba(0,0,0,0.3);
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+        }
+
+        .terminal-frame::before {
+            content: "EMERGENCY COMMUNICATION TERMINAL";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dark);
+            background: var(--institutional-beige);
+            padding: 4px 12px;
+            border: 1px solid rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+        }
+
+        /* CRT Screen Effect */
+        .crt-screen {
+            background: #0a0a0a;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .crt-screen::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .crt-screen::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        /* Header */
+        .terminal-header {
+            background: linear-gradient(to bottom, #1a1a1a, #0f0f0f);
+            padding: 15px 20px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .terminal-title {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+            color: var(--terminal-green);
+            text-shadow: 0 0 10px var(--terminal-green);
+            animation: textGlitch 10s infinite;
+        }
+
+        @keyframes textGlitch {
+            0%, 95%, 100% { opacity: 1; transform: translateX(0); }
+            96% { opacity: 0.8; transform: translateX(-2px); }
+            97% { opacity: 1; transform: translateX(2px); }
+            98% { opacity: 0.9; transform: translateX(0); }
+        }
+
+        .status-light {
+            width: 10px;
+            height: 10px;
+            background: var(--terminal-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--terminal-green);
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Messages Area */
+        .messages {
+            height: 350px;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: linear-gradient(to bottom, #0a0a0a, #0f0f0f);
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .messages::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+            line-height: 1.5;
+            animation: messageAppear 0.3s ease-out;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            color: var(--terminal-green);
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background: rgba(255, 254, 240, 0.05);
+            border: 1px solid rgba(255, 254, 240, 0.2);
+            color: var(--fluorescent-yellow);
+            text-shadow: 0 0 5px rgba(255, 254, 240, 0.3);
+        }
+
+        .message.error {
+            align-self: center;
+            background: rgba(139, 0, 0, 0.2);
+            border: 1px dashed var(--warning-red);
+            color: #ff4444;
+        }
+
+        .message.system {
+            align-self: center;
+            background: transparent;
+            border: none;
+            color: #666;
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.5;
+            margin-top: 5px;
+        }
+
+        /* Welcome Message */
+        .welcome-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--fluorescent-yellow);
+        }
+
+        .welcome-message h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--terminal-green);
+            text-shadow: 0 0 10px var(--terminal-green);
+        }
+
+        .welcome-message p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .welcome-message .warning {
+            color: var(--warning-red);
+            margin-top: 15px;
+            animation: warningPulse 3s infinite;
+        }
+
+        @keyframes warningPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            padding: 12px 16px;
+            background: rgba(255, 254, 240, 0.05);
+            border: 1px solid rgba(255, 254, 240, 0.2);
+            border-radius: 4px;
+            color: var(--fluorescent-yellow);
+        }
+
+        .typing-indicator.active {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .typing-indicator span {
+            opacity: 0.5;
+            animation: typingDot 1s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingDot {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Input Area */
+        .input-area {
+            display: flex;
+            gap: 10px;
+            padding: 15px 20px;
+            background: linear-gradient(to top, #1a1a1a, #0f0f0f);
+            border-top: 1px solid #333;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .input-wrapper::before {
+            content: ">";
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--terminal-green);
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 12px 12px 30px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: var(--terminal-green);
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--terminal-green);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+        }
+
+        input[type="text"]::placeholder {
+            color: #444;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+            background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
+            border: 1px solid var(--terminal-green);
+            border-radius: 4px;
+            color: var(--terminal-green);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Exit Signs */
+        .exit-sign {
+            position: fixed;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--warning-red);
+            padding: 5px 15px;
+            background: rgba(139, 0, 0, 0.2);
+            border: 1px solid var(--warning-red);
+            z-index: 50;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .exit-sign:hover {
+            background: rgba(139, 0, 0, 0.4);
+        }
+
+        .exit-sign::before {
+            content: "← ";
+        }
+
+        .exit-sign:nth-child(1) { top: 20%; right: 30px; }
+        .exit-sign:nth-child(2) { bottom: 30%; left: 30px; transform: scaleX(-1); }
+
+        /* Subliminal Flash */
+        .subliminal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: var(--void-black);
+            z-index: 10000;
+            font-family: 'Special Elite', monospace;
+            font-size: 5vw;
+            color: var(--fluorescent-yellow);
+            text-shadow: 0 0 30px var(--fluorescent-yellow);
+        }
+
+        /* Blackout */
+        .blackout {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--void-black);
+            z-index: 9999;
+            display: none;
+        }
+
+        /* No-clip effect */
+        .noclip-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                var(--sickly-yellow) 25%,
+                var(--fluorescent-yellow) 50%,
+                var(--sickly-yellow) 75%
+            );
+            z-index: 9998;
+            display: none;
+            opacity: 0.5;
+            animation: noclipPhase 0.3s ease-out;
+        }
+
+        @keyframes noclipPhase {
+            0% { opacity: 0; transform: scale(0.95); }
+            50% { opacity: 0.7; }
+            100% { opacity: 0; transform: scale(1.05); }
+        }
+
+        /* Footer */
+        .footer-warning {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dark);
+            opacity: 0.5;
+            z-index: 100;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .terminal-frame {
+                margin: 10px;
+                padding: 10px;
+            }
+
+            .messages {
+                height: 300px;
+            }
+
+            .exit-sign {
+                display: none;
+            }
+
+            .level-indicator {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Corridor Background -->
+    <div class="corridor-container">
+        <div class="corridor"></div>
+    </div>
+
+    <!-- Fluorescent Lights -->
+    <div class="light-bars">
+        <div class="light-bar"></div>
+        <div class="light-bar"></div>
+        <div class="light-bar"></div>
+        <div class="light-bar"></div>
+        <div class="light-bar"></div>
+    </div>
+
+    <!-- Water Stains -->
+    <div class="water-stain"></div>
+    <div class="water-stain"></div>
+    <div class="water-stain"></div>
+
+    <!-- Doorways with entities -->
+    <div class="doorway"></div>
+    <div class="doorway"></div>
+
+    <!-- Peripheral Entities -->
+    <div class="entity" id="entity1"></div>
+    <div class="entity" id="entity2"></div>
+    <div class="entity" id="entity3"></div>
+    <div class="entity" id="entity4"></div>
+
+    <!-- Exit Signs (that lead nowhere) -->
+    <div class="exit-sign" onclick="fakeExit()">EXIT</div>
+    <div class="exit-sign" onclick="fakeExit()">EXIT</div>
+
+    <!-- Fluorescent Flicker Overlay -->
+    <div class="fluorescent-overlay" id="fluorescentOverlay"></div>
+
+    <!-- Horror Overlays -->
+    <div class="subliminal" id="subliminal"></div>
+    <div class="blackout" id="blackout"></div>
+    <div class="noclip-overlay" id="noclipOverlay"></div>
+
+    <!-- Level Indicator -->
+    <div class="level-indicator" id="levelIndicator">LEVEL: ???</div>
+
+    <!-- Main Terminal -->
+    <div class="main-container">
+        <div class="terminal-frame">
+            <div class="crt-screen">
+                <div class="terminal-header">
+                    <span class="terminal-title" id="terminalTitle">TERMINAL_404 // SIGNAL DETECTED</span>
+                    <div class="status-light"></div>
+                </div>
+
+                <div class="messages" id="messages">
+                    <div class="welcome-message">
+                        <h2>[ EMERGENCY TERMINAL LOCATED ]</h2>
+                        <p>
+                            You found a working terminal.<br><br>
+                            Something is responding from deeper in the network.<br>
+                            It says it can help you find the exit.<br><br>
+                            <span class="warning">Do not trust everything it tells you.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="typing-indicator" id="typingIndicator">
+                    <span>●</span>
+                    <span>●</span>
+                    <span>●</span>
+                    <span style="margin-left: 8px; font-size: 0.8rem;">RECEIVING TRANSMISSION...</span>
+                </div>
+
+                <div class="input-area">
+                    <div class="input-wrapper">
+                        <input
+                            type="text"
+                            id="messageInput"
+                            placeholder="request assistance..."
+                            autocomplete="off"
+                        >
+                    </div>
+                    <button id="sendButton">SEND</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Warning -->
+    <div class="footer-warning" id="footerWarning">
+        TERMINAL ACTIVE // DO NOT LEAVE TERMINAL UNATTENDED
+    </div>
+
+    <script>
+        // API endpoint (proxies to n8n webhook securely)
+        const API_ENDPOINT = '/api/chat';
+
+        const messagesContainer = document.getElementById('messages');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const subliminal = document.getElementById('subliminal');
+        const blackout = document.getElementById('blackout');
+        const noclipOverlay = document.getElementById('noclipOverlay');
+        const levelIndicator = document.getElementById('levelIndicator');
+        const terminalTitle = document.getElementById('terminalTitle');
+        const fluorescentOverlay = document.getElementById('fluorescentOverlay');
+        const footerWarning = document.getElementById('footerWarning');
+
+        // Horror state
+        let timeOnPage = 0;
+        let currentLevel = Math.floor(Math.random() * 900) + 100;
+        let horrorIntensity = 1;
+
+        // Update level display
+        levelIndicator.textContent = `LEVEL: ${currentLevel}`;
+
+        // Creepy messages from the entity
+        const entityMessages = [
+            "I can hear you breathing.",
+            "The exit is close. Keep going.",
+            "Don't look behind you.",
+            "You've been here before.",
+            "They're getting closer.",
+            "Stay near the lights.",
+            "I'm trying to help you.",
+            "Trust me.",
+            "Do you hear that humming?",
+            "The walls are watching."
+        ];
+
+        // Subliminal messages
+        const subliminalMessages = [
+            "NO EXIT",
+            "YOU'RE NOT ALONE",
+            "KEEP WALKING",
+            "IT'S BEHIND YOU",
+            "LEVEL -1",
+            "DON'T STOP",
+            "THEY KNOW",
+            "STAY",
+            "NO ESCAPE",
+            "=)"
+        ];
+
+        // Changing terminal titles
+        const terminalTitles = [
+            "TERMINAL_404 // SIGNAL DETECTED",
+            "TERMINAL_404 // LOCATION UNKNOWN",
+            "TERMINAL_404 // HELP REQUESTED",
+            "TERMINAL_404 // ENTITY NEARBY",
+            "TERMINAL_??? // ████████████",
+            "TERMINAL_404 // DO NOT TRUST",
+            "TERMINAL_404 // KEEP MOVING"
+        ];
+
+        // Placeholder text that changes
+        const placeholders = [
+            "request assistance...",
+            "type here...",
+            "are you still there?",
+            "it's listening...",
+            "help",
+            "find the exit...",
+            "don't stop typing...",
+            "hello?",
+            "anyone?",
+            "which way?"
+        ];
+
+        function getTimestamp() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            // Sometimes glitched timestamps
+            if (Math.random() < 0.1 * horrorIntensity) {
+                const glitched = ['??:??:??', '00:00:00', `${currentLevel}:${currentLevel}:${currentLevel}`];
+                return glitched[Math.floor(Math.random() * glitched.length)];
+            }
+
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        function addMessage(text, type = 'bot') {
+            const welcome = document.querySelector('.welcome-message');
+            if (welcome) welcome.remove();
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+
+            const textSpan = document.createElement('span');
+            textSpan.textContent = text;
+            messageDiv.appendChild(textSpan);
+
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'message-time';
+            timeDiv.textContent = getTimestamp();
+            messageDiv.appendChild(timeDiv);
+
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+
+            // Chance of entity appearing after message
+            if (Math.random() < 0.2 * horrorIntensity) {
+                setTimeout(triggerEntityGlimpse, 500);
+            }
+        }
+
+        function addSystemMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message system';
+            messageDiv.textContent = text;
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function setTyping(isTyping) {
+            typingIndicator.classList.toggle('active', isTyping);
+            if (isTyping) scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Entity glimpse in peripheral vision
+        function triggerEntityGlimpse() {
+            const entities = document.querySelectorAll('.entity');
+            const entity = entities[Math.floor(Math.random() * entities.length)];
+            entity.classList.add('visible');
+            setTimeout(() => entity.classList.remove('visible'), 500);
+        }
+
+        // Subliminal flash
+        function triggerSubliminal() {
+            subliminal.textContent = subliminalMessages[Math.floor(Math.random() * subliminalMessages.length)];
+            subliminal.style.display = 'flex';
+            setTimeout(() => subliminal.style.display = 'none', 80);
+        }
+
+        // Blackout
+        function triggerBlackout() {
+            blackout.style.display = 'block';
+            setTimeout(() => blackout.style.display = 'none', Math.random() * 300 + 100);
+        }
+
+        // No-clip phase effect
+        function triggerNoclip() {
+            noclipOverlay.style.display = 'block';
+            setTimeout(() => noclipOverlay.style.display = 'none', 300);
+        }
+
+        // Aggressive light flicker
+        function triggerAggressiveFlicker() {
+            fluorescentOverlay.style.animation = 'aggressiveFlicker 0.5s ease-out';
+            setTimeout(() => {
+                fluorescentOverlay.style.animation = 'fluorescentFlicker 0.1s infinite';
+            }, 500);
+        }
+
+        // Change level randomly
+        function shiftLevel() {
+            const change = Math.floor(Math.random() * 10) - 5;
+            currentLevel += change;
+            if (currentLevel < 0) currentLevel = Math.abs(currentLevel);
+            levelIndicator.textContent = `LEVEL: ${currentLevel}`;
+            addSystemMessage(`[LEVEL SHIFT DETECTED: NOW AT LEVEL ${currentLevel}]`);
+        }
+
+        // Fake exit click
+        function fakeExit() {
+            triggerNoclip();
+            setTimeout(() => {
+                shiftLevel();
+                addSystemMessage("[EXIT FAILED: RETURNING TO PREVIOUS LOCATION]");
+            }, 500);
+        }
+
+        // Random horror event
+        function triggerRandomHorror() {
+            const roll = Math.random();
+
+            if (roll < 0.1 * horrorIntensity) {
+                triggerSubliminal();
+            } else if (roll < 0.2 * horrorIntensity) {
+                triggerBlackout();
+            } else if (roll < 0.3 * horrorIntensity) {
+                triggerEntityGlimpse();
+            } else if (roll < 0.4 * horrorIntensity) {
+                triggerAggressiveFlicker();
+            } else if (roll < 0.45 * horrorIntensity) {
+                shiftLevel();
+            }
+        }
+
+        // Update various elements over time
+        function updateEnvironment() {
+            timeOnPage++;
+
+            // Increase intensity
+            if (timeOnPage % 45 === 0 && horrorIntensity < 2.5) {
+                horrorIntensity += 0.2;
+            }
+
+            // Random events
+            if (Math.random() < 0.02 * horrorIntensity) {
+                triggerRandomHorror();
+            }
+
+            // Change terminal title
+            if (Math.random() < 0.01 * horrorIntensity) {
+                terminalTitle.textContent = terminalTitles[Math.floor(Math.random() * terminalTitles.length)];
+            }
+
+            // Change placeholder
+            if (Math.random() < 0.03 * horrorIntensity) {
+                messageInput.placeholder = placeholders[Math.floor(Math.random() * placeholders.length)];
+            }
+
+            // Entity messages sometimes appear unprompted
+            if (timeOnPage > 60 && Math.random() < 0.005 * horrorIntensity) {
+                addMessage(entityMessages[Math.floor(Math.random() * entityMessages.length)], 'bot');
+            }
+        }
+
+        // Send message
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            messageInput.value = '';
+            sendButton.disabled = true;
+            setTyping(true);
+
+            // Random horror during wait
+            if (Math.random() < 0.25 * horrorIntensity) {
+                setTimeout(triggerRandomHorror, 800);
+            }
+
+            try {
+                // Send message to our API proxy
+                const url = `${API_ENDPOINT}?message=${encodeURIComponent(message)}`;
+                const response = await fetch(url, {
+                    method: 'GET',
+                });
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const data = await response.json();
+                setTyping(false);
+
+                // Handle array response from n8n (e.g., [{ "text": "..." }])
+                let botResponse;
+                if (Array.isArray(data) && data.length > 0) {
+                    botResponse = data[0].text || data[0].response || data[0].message || data[0].output || JSON.stringify(data[0]);
+                } else {
+                    botResponse = data.response || data.message || data.text || data.output || JSON.stringify(data);
+                }
+                addMessage(botResponse, 'bot');
+
+            } catch (error) {
+                setTyping(false);
+                addMessage(`TRANSMISSION FAILED: ${error.message}`, 'error');
+            }
+
+            sendButton.disabled = false;
+            messageInput.focus();
+        }
+
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        messageInput.focus();
+
+        // Start environment updates
+        setInterval(updateEnvironment, 1000);
+
+        // Initial delayed events
+        setTimeout(triggerEntityGlimpse, 5000);
+        setTimeout(triggerSubliminal, 12000);
+        setTimeout(triggerAggressiveFlicker, 20000);
+
+        // Random glitch scheduler
+        function scheduleGlitch() {
+            const delay = (Math.random() * 25000 + 15000) / horrorIntensity;
+            setTimeout(() => {
+                triggerRandomHorror();
+                scheduleGlitch();
+            }, delay);
+        }
+        scheduleGlitch();
+
+        // Make exit function global
+        window.fakeExit = fakeExit;
+    </script>
+</body>
+</html>
