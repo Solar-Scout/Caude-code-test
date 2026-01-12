@@ -6,7 +6,7 @@
     <title>TERMINAL_404 // LEVEL ???</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&family=Special+Elite&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&family=Special+Elite&family=Creepster&display=swap" rel="stylesheet">
     <style>
         :root {
             --fluorescent-yellow: #E8E4C9;
@@ -18,8 +18,11 @@
             --entity-shadow: #1A1A1A;
             --buzzing-white: #FFFEF0;
             --warning-red: #8B0000;
+            --blood-red: #660000;
             --text-dark: #2A2A2A;
             --terminal-green: #00FF41;
+            --corruption-purple: #4B0082;
+            --static-white: #FAFAFA;
         }
 
         * {
@@ -39,6 +42,329 @@
             color: var(--text-dark);
             display: flex;
             flex-direction: column;
+        }
+
+        /* HORROR FACE FLASH */
+        .horror-face {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: var(--void-black);
+            pointer-events: none;
+        }
+
+        .horror-face.active {
+            display: flex;
+            animation: faceFlash 0.15s ease-out forwards;
+        }
+
+        .horror-face-content {
+            font-size: 40vmin;
+            color: var(--blood-red);
+            text-shadow:
+                0 0 50px var(--blood-red),
+                0 0 100px var(--warning-red);
+            animation: faceShake 0.15s ease-out;
+            font-family: 'Creepster', cursive;
+        }
+
+        @keyframes faceFlash {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes faceShake {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-5px, 5px) scale(1.1); }
+            50% { transform: translate(5px, -5px) scale(0.95); }
+            75% { transform: translate(-5px, -5px) scale(1.05); }
+        }
+
+        /* DISTORTED FACE OVERLAY */
+        .distorted-face {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.95);
+            pointer-events: none;
+        }
+
+        .distorted-face.active {
+            display: flex;
+            animation: distortFlash 0.3s ease-out forwards;
+        }
+
+        .face-ascii {
+            font-family: 'VT323', monospace;
+            font-size: clamp(8px, 1.5vw, 14px);
+            color: var(--fluorescent-yellow);
+            white-space: pre;
+            line-height: 1;
+            text-shadow: 0 0 10px var(--fluorescent-yellow);
+            animation: asciiGlitch 0.3s ease-out;
+        }
+
+        @keyframes distortFlash {
+            0% { opacity: 0; transform: scale(2); }
+            20% { opacity: 1; transform: scale(1); }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes asciiGlitch {
+            0%, 100% { filter: none; }
+            25% { filter: invert(1) hue-rotate(180deg); }
+            50% { filter: blur(2px); }
+            75% { filter: contrast(2) brightness(1.5); }
+        }
+
+        /* STATIC/NOISE OVERLAY */
+        .static-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99998;
+            display: none;
+            pointer-events: none;
+            background: repeating-radial-gradient(
+                circle at 50% 50%,
+                transparent 0,
+                rgba(255,255,255,0.03) 1px,
+                transparent 2px
+            );
+            animation: staticNoise 0.05s steps(10) infinite;
+        }
+
+        .static-overlay.active {
+            display: block;
+        }
+
+        @keyframes staticNoise {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+
+        /* GLITCH SCREEN TEAR */
+        .screen-tear {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99997;
+            display: none;
+            pointer-events: none;
+        }
+
+        .screen-tear.active {
+            display: block;
+            animation: screenTear 0.2s steps(1) forwards;
+        }
+
+        @keyframes screenTear {
+            0% { clip-path: polygon(0 0, 100% 0, 100% 20%, 0 25%); background: var(--void-black); }
+            20% { clip-path: polygon(0 30%, 100% 25%, 100% 50%, 0 55%); background: var(--corruption-purple); }
+            40% { clip-path: polygon(0 45%, 100% 40%, 100% 70%, 0 75%); background: var(--blood-red); }
+            60% { clip-path: polygon(0 60%, 100% 55%, 100% 85%, 0 90%); background: var(--void-black); }
+            80% { clip-path: polygon(0 80%, 100% 75%, 100% 100%, 0 100%); background: rgba(0,0,0,0.8); }
+            100% { clip-path: none; background: transparent; display: none; }
+        }
+
+        /* CORRUPTION EFFECT */
+        .corruption-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99996;
+            display: none;
+            pointer-events: none;
+            background:
+                linear-gradient(90deg, transparent 0%, var(--corruption-purple) 50%, transparent 100%);
+            mix-blend-mode: overlay;
+        }
+
+        .corruption-overlay.active {
+            display: block;
+            animation: corruptionWave 0.5s ease-out forwards;
+        }
+
+        @keyframes corruptionWave {
+            0% { transform: translateX(-100%); opacity: 0.8; }
+            100% { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* WATCHING EYES */
+        .watching-eyes {
+            position: fixed;
+            z-index: 99995;
+            display: none;
+            pointer-events: none;
+        }
+
+        .watching-eyes.active {
+            display: block;
+            animation: eyesFade 2s ease-out forwards;
+        }
+
+        .eye {
+            width: 60px;
+            height: 30px;
+            background: radial-gradient(ellipse at center, #fff 30%, #000 31%, #000 50%, var(--blood-red) 51%, var(--void-black) 70%);
+            border-radius: 50%;
+            position: relative;
+            animation: eyeLook 0.5s ease-in-out infinite alternate;
+        }
+
+        .eye::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 15px;
+            height: 15px;
+            background: var(--void-black);
+            border-radius: 50%;
+            animation: pupilMove 0.3s ease-in-out infinite alternate;
+        }
+
+        @keyframes eyesFade {
+            0% { opacity: 0; }
+            10% { opacity: 0.8; }
+            80% { opacity: 0.6; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes eyeLook {
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(0.3); }
+        }
+
+        @keyframes pupilMove {
+            0% { transform: translate(-70%, -50%); }
+            100% { transform: translate(-30%, -50%); }
+        }
+
+        /* BLOODY HANDPRINT */
+        .handprint {
+            position: fixed;
+            z-index: 99994;
+            display: none;
+            pointer-events: none;
+            font-size: 150px;
+            color: var(--blood-red);
+            opacity: 0;
+            text-shadow: 0 0 20px var(--blood-red);
+            filter: blur(1px);
+        }
+
+        .handprint.active {
+            display: block;
+            animation: handprintAppear 3s ease-out forwards;
+        }
+
+        @keyframes handprintAppear {
+            0% { opacity: 0; transform: scale(0.5) rotate(-20deg); }
+            10% { opacity: 0.7; transform: scale(1) rotate(0deg); }
+            90% { opacity: 0.5; }
+            100% { opacity: 0; }
+        }
+
+        /* CREEPY TEXT CRAWL */
+        .text-crawl {
+            position: fixed;
+            z-index: 99993;
+            font-family: 'Creepster', 'Special Elite', cursive;
+            font-size: 2rem;
+            color: var(--blood-red);
+            text-shadow: 2px 2px 4px var(--void-black);
+            white-space: nowrap;
+            display: none;
+            pointer-events: none;
+        }
+
+        .text-crawl.active {
+            display: block;
+            animation: textCrawl 4s linear forwards;
+        }
+
+        @keyframes textCrawl {
+            0% { transform: translateX(100vw); opacity: 0.8; }
+            100% { transform: translateX(-100%); opacity: 0; }
+        }
+
+        /* HEARTBEAT VIGNETTE */
+        .heartbeat-vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99992;
+            pointer-events: none;
+            display: none;
+            background: radial-gradient(ellipse at center, transparent 40%, var(--blood-red) 100%);
+            opacity: 0;
+        }
+
+        .heartbeat-vignette.active {
+            display: block;
+            animation: heartbeatPulse 1s ease-in-out 3;
+        }
+
+        @keyframes heartbeatPulse {
+            0%, 100% { opacity: 0; }
+            15% { opacity: 0.3; }
+            30% { opacity: 0; }
+            45% { opacity: 0.4; }
+            60% { opacity: 0; }
+        }
+
+        /* ENTITY APPROACHING TEXT */
+        .entity-warning {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 99991;
+            font-family: 'VT323', monospace;
+            font-size: 3rem;
+            color: var(--warning-red);
+            text-shadow: 0 0 20px var(--warning-red);
+            display: none;
+            pointer-events: none;
+            text-align: center;
+        }
+
+        .entity-warning.active {
+            display: block;
+            animation: warningFlash 2s ease-out forwards;
+        }
+
+        @keyframes warningFlash {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            10% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            20% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+            80% { opacity: 0.6; }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
         }
 
         /* Fluorescent Light Flicker Overlay */
@@ -76,6 +402,21 @@
             51% { opacity: 1; background: transparent; }
             80% { opacity: 0.7; }
             81% { opacity: 1; }
+        }
+
+        /* INTENSE STROBE for jumpscares */
+        @keyframes strobeFlicker {
+            0% { background: var(--void-black); }
+            10% { background: var(--buzzing-white); }
+            20% { background: var(--void-black); }
+            30% { background: var(--buzzing-white); }
+            40% { background: var(--void-black); }
+            50% { background: var(--blood-red); }
+            60% { background: var(--void-black); }
+            70% { background: var(--buzzing-white); }
+            80% { background: var(--void-black); }
+            90% { background: var(--blood-red); }
+            100% { background: transparent; }
         }
 
         /* Infinite Corridor Background */
@@ -205,6 +546,60 @@
         .entity:nth-child(3) { left: 8%; bottom: 20%; }
         .entity:nth-child(4) { right: 6%; bottom: 25%; }
 
+        /* ENHANCED ENTITY - THE WATCHER */
+        .watcher-entity {
+            position: fixed;
+            width: 120px;
+            height: 300px;
+            z-index: 3;
+            display: none;
+            pointer-events: none;
+        }
+
+        .watcher-entity.active {
+            display: block;
+            animation: watcherAppear 1.5s ease-out forwards;
+        }
+
+        .watcher-body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                var(--void-black) 10%,
+                var(--void-black) 90%,
+                transparent 100%
+            );
+            position: relative;
+        }
+
+        .watcher-body::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, var(--blood-red) 30%, var(--void-black) 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--blood-red);
+            animation: watcherEye 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes watcherAppear {
+            0% { opacity: 0; transform: translateY(50px); }
+            30% { opacity: 0.8; transform: translateY(0); }
+            80% { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+
+        @keyframes watcherEye {
+            0% { box-shadow: 0 0 20px var(--blood-red); }
+            100% { box-shadow: 0 0 40px var(--blood-red), 0 0 60px var(--warning-red); }
+        }
+
         /* Doorway silhouettes */
         .doorway {
             position: fixed;
@@ -271,6 +666,33 @@
             50% { transform: scaleY(1.2); opacity: 0.7; }
         }
 
+        /* BLOOD DRIP */
+        .blood-drip {
+            position: fixed;
+            width: 4px;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                var(--blood-red),
+                var(--warning-red),
+                var(--blood-red),
+                transparent
+            );
+            z-index: 3;
+            display: none;
+            pointer-events: none;
+        }
+
+        .blood-drip.active {
+            display: block;
+            animation: bloodDrip 3s ease-in forwards;
+        }
+
+        @keyframes bloodDrip {
+            0% { height: 0; opacity: 0.8; top: 0; }
+            100% { height: 100vh; opacity: 0; top: 0; }
+        }
+
         /* Level Indicator */
         .level-indicator {
             position: fixed;
@@ -287,7 +709,7 @@
         }
 
         .level-indicator::before {
-            content: "⚠ ";
+            content: "!! ";
             color: var(--warning-red);
         }
 
@@ -641,7 +1063,7 @@
         }
 
         .exit-sign::before {
-            content: "← ";
+            content: "<- ";
         }
 
         .exit-sign:nth-child(1) { top: 20%; right: 30px; }
@@ -659,7 +1081,7 @@
             align-items: center;
             background: var(--void-black);
             z-index: 10000;
-            font-family: 'Special Elite', monospace;
+            font-family: 'Creepster', 'Special Elite', monospace;
             font-size: 5vw;
             color: var(--fluorescent-yellow);
             text-shadow: 0 0 30px var(--fluorescent-yellow);
@@ -702,6 +1124,50 @@
             100% { opacity: 0; transform: scale(1.05); }
         }
 
+        /* AUDIO ENABLE PROMPT */
+        .audio-prompt {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .audio-prompt h1 {
+            font-family: 'Creepster', cursive;
+            font-size: 3rem;
+            color: var(--blood-red);
+            text-shadow: 0 0 30px var(--blood-red);
+            margin-bottom: 20px;
+            animation: promptPulse 2s infinite;
+        }
+
+        .audio-prompt p {
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--fluorescent-yellow);
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .audio-prompt .warning-text {
+            color: var(--warning-red);
+            font-size: 0.9rem;
+            margin-top: 30px;
+            opacity: 0.7;
+        }
+
+        @keyframes promptPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
         /* Footer */
         .footer-warning {
             position: fixed;
@@ -733,10 +1199,58 @@
             .level-indicator {
                 font-size: 0.7rem;
             }
+
+            .audio-prompt h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- AUDIO ENABLE PROMPT -->
+    <div class="audio-prompt" id="audioPrompt">
+        <h1>ENTER THE BACKROOMS</h1>
+        <p>[ CLICK ANYWHERE TO BEGIN ]</p>
+        <p class="warning-text">!! HEADPHONES RECOMMENDED - CONTAINS AUDIO !!</p>
+    </div>
+
+    <!-- HORROR OVERLAYS -->
+    <div class="horror-face" id="horrorFace">
+        <div class="horror-face-content" id="horrorFaceContent"></div>
+    </div>
+
+    <div class="distorted-face" id="distortedFace">
+        <pre class="face-ascii" id="faceAscii"></pre>
+    </div>
+
+    <div class="static-overlay" id="staticOverlay"></div>
+    <div class="screen-tear" id="screenTear"></div>
+    <div class="corruption-overlay" id="corruptionOverlay"></div>
+
+    <div class="watching-eyes" id="watchingEyes">
+        <div class="eye"></div>
+    </div>
+
+    <div class="handprint" id="handprint"></div>
+    <div class="text-crawl" id="textCrawl"></div>
+    <div class="heartbeat-vignette" id="heartbeatVignette"></div>
+    <div class="entity-warning" id="entityWarning"></div>
+
+    <div class="watcher-entity" id="watcherEntity">
+        <div class="watcher-body"></div>
+    </div>
+
+    <div class="blood-drip" id="bloodDrip"></div>
+
     <!-- Corridor Background -->
     <div class="corridor-container">
         <div class="corridor"></div>
@@ -803,9 +1317,9 @@
                 </div>
 
                 <div class="typing-indicator" id="typingIndicator">
-                    <span>●</span>
-                    <span>●</span>
-                    <span>●</span>
+                    <span>*</span>
+                    <span>*</span>
+                    <span>*</span>
                     <span style="margin-left: 8px; font-size: 0.8rem;">RECEIVING TRANSMISSION...</span>
                 </div>
 
@@ -830,6 +1344,686 @@
     </div>
 
     <script>
+        // ============================================
+        // AUDIO SYSTEM - Web Audio API
+        // ============================================
+        let audioContext = null;
+        let audioEnabled = false;
+        let masterGain = null;
+
+        // Audio state
+        const audioState = {
+            ambientLoop: null,
+            buzzLoop: null,
+            heartbeatInterval: null
+        };
+
+        function initAudio() {
+            if (audioContext) return;
+
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            masterGain = audioContext.createGain();
+            masterGain.gain.value = 0.6;
+            masterGain.connect(audioContext.destination);
+            audioEnabled = true;
+
+            // Start ambient sounds
+            startAmbientHum();
+            startFluorescentBuzz();
+        }
+
+        // Generate white/pink noise
+        function createNoise(duration = 1, type = 'white') {
+            const sampleRate = audioContext.sampleRate;
+            const length = sampleRate * duration;
+            const buffer = audioContext.createBuffer(1, length, sampleRate);
+            const data = buffer.getChannelData(0);
+
+            let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+
+            for (let i = 0; i < length; i++) {
+                const white = Math.random() * 2 - 1;
+
+                if (type === 'pink') {
+                    b0 = 0.99886 * b0 + white * 0.0555179;
+                    b1 = 0.99332 * b1 + white * 0.0750759;
+                    b2 = 0.96900 * b2 + white * 0.1538520;
+                    b3 = 0.86650 * b3 + white * 0.3104856;
+                    b4 = 0.55000 * b4 + white * 0.5329522;
+                    b5 = -0.7616 * b5 - white * 0.0168980;
+                    data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+                    b6 = white * 0.115926;
+                } else if (type === 'brown') {
+                    data[i] = (b0 = (b0 + (0.02 * white)) / 1.02) * 3.5;
+                } else {
+                    data[i] = white;
+                }
+            }
+
+            return buffer;
+        }
+
+        // Ambient room hum - low frequency drone
+        function startAmbientHum() {
+            if (!audioEnabled) return;
+
+            // Base drone
+            const osc1 = audioContext.createOscillator();
+            const osc2 = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            const filter = audioContext.createBiquadFilter();
+
+            osc1.type = 'sine';
+            osc1.frequency.value = 60; // 60Hz hum
+            osc2.type = 'sine';
+            osc2.frequency.value = 120;
+
+            filter.type = 'lowpass';
+            filter.frequency.value = 200;
+
+            gain.gain.value = 0.08;
+
+            osc1.connect(filter);
+            osc2.connect(filter);
+            filter.connect(gain);
+            gain.connect(masterGain);
+
+            osc1.start();
+            osc2.start();
+
+            // Modulate the drone slightly
+            setInterval(() => {
+                if (!audioEnabled) return;
+                osc1.frequency.setValueAtTime(60 + Math.random() * 2 - 1, audioContext.currentTime);
+                gain.gain.setValueAtTime(0.05 + Math.random() * 0.06, audioContext.currentTime);
+            }, 2000);
+
+            audioState.ambientLoop = { osc1, osc2, gain };
+        }
+
+        // Fluorescent light buzz
+        function startFluorescentBuzz() {
+            if (!audioEnabled) return;
+
+            const noiseBuffer = createNoise(2, 'pink');
+
+            function playBuzz() {
+                if (!audioEnabled) return;
+
+                const source = audioContext.createBufferSource();
+                const gain = audioContext.createGain();
+                const filter = audioContext.createBiquadFilter();
+
+                source.buffer = noiseBuffer;
+                source.loop = true;
+
+                filter.type = 'bandpass';
+                filter.frequency.value = 4000;
+                filter.Q.value = 5;
+
+                gain.gain.value = 0.015;
+
+                source.connect(filter);
+                filter.connect(gain);
+                gain.connect(masterGain);
+
+                source.start();
+
+                // Random intensity fluctuations
+                setInterval(() => {
+                    if (!audioEnabled) return;
+                    gain.gain.setTargetAtTime(0.01 + Math.random() * 0.02, audioContext.currentTime, 0.1);
+                }, 500);
+
+                audioState.buzzLoop = source;
+            }
+
+            playBuzz();
+        }
+
+        // Footsteps sound - distant and echoing
+        function playFootsteps() {
+            if (!audioEnabled) return;
+
+            const steps = Math.floor(Math.random() * 5) + 3;
+
+            for (let i = 0; i < steps; i++) {
+                setTimeout(() => {
+                    if (!audioEnabled) return;
+
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    const filter = audioContext.createBiquadFilter();
+
+                    osc.type = 'sine';
+                    osc.frequency.value = 80 + Math.random() * 40;
+
+                    filter.type = 'lowpass';
+                    filter.frequency.value = 300;
+
+                    gain.gain.value = 0;
+                    gain.gain.setValueAtTime(0.15, audioContext.currentTime);
+                    gain.gain.exponentialDecayTo = 0.001;
+                    gain.gain.setTargetAtTime(0.001, audioContext.currentTime, 0.1);
+
+                    osc.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(masterGain);
+
+                    osc.start();
+                    osc.stop(audioContext.currentTime + 0.15);
+                }, i * (400 + Math.random() * 200));
+            }
+        }
+
+        // Whisper sound - creepy unintelligible whispers
+        function playWhisper() {
+            if (!audioEnabled) return;
+
+            const noiseBuffer = createNoise(2, 'pink');
+            const source = audioContext.createBufferSource();
+            const gain = audioContext.createGain();
+            const filter = audioContext.createBiquadFilter();
+            const filter2 = audioContext.createBiquadFilter();
+
+            source.buffer = noiseBuffer;
+
+            // Shape noise to sound like whispers
+            filter.type = 'bandpass';
+            filter.frequency.value = 2000 + Math.random() * 2000;
+            filter.Q.value = 10;
+
+            filter2.type = 'highpass';
+            filter2.frequency.value = 500;
+
+            gain.gain.value = 0;
+            gain.gain.setValueAtTime(0, audioContext.currentTime);
+            gain.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.3);
+            gain.gain.linearRampToValueAtTime(0, audioContext.currentTime + 1.5);
+
+            source.connect(filter);
+            filter.connect(filter2);
+            filter2.connect(gain);
+            gain.connect(masterGain);
+
+            // Pan randomly
+            const panner = audioContext.createStereoPanner();
+            panner.pan.value = Math.random() * 2 - 1;
+            gain.disconnect();
+            gain.connect(panner);
+            panner.connect(masterGain);
+
+            source.start();
+            source.stop(audioContext.currentTime + 2);
+        }
+
+        // Static burst
+        function playStatic() {
+            if (!audioEnabled) return;
+
+            const noiseBuffer = createNoise(0.5, 'white');
+            const source = audioContext.createBufferSource();
+            const gain = audioContext.createGain();
+
+            source.buffer = noiseBuffer;
+
+            gain.gain.value = 0;
+            gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gain.gain.exponentialDecayTo = 0.001;
+            gain.gain.setTargetAtTime(0.001, audioContext.currentTime, 0.1);
+
+            source.connect(gain);
+            gain.connect(masterGain);
+
+            source.start();
+            source.stop(audioContext.currentTime + 0.3);
+        }
+
+        // Heartbeat sound
+        function playHeartbeat() {
+            if (!audioEnabled) return;
+
+            function beat() {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.value = 40;
+
+                gain.gain.value = 0;
+                gain.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gain.gain.setTargetAtTime(0.001, audioContext.currentTime, 0.08);
+
+                osc.connect(gain);
+                gain.connect(masterGain);
+
+                osc.start();
+                osc.stop(audioContext.currentTime + 0.15);
+            }
+
+            // Double beat
+            beat();
+            setTimeout(beat, 150);
+        }
+
+        // Scream/screech for jumpscares
+        function playScream() {
+            if (!audioEnabled) return;
+
+            const osc1 = audioContext.createOscillator();
+            const osc2 = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            const distortion = audioContext.createWaveShaper();
+
+            // Create distortion curve
+            const curve = new Float32Array(256);
+            for (let i = 0; i < 256; i++) {
+                const x = (i - 128) / 128;
+                curve[i] = Math.tanh(x * 3);
+            }
+            distortion.curve = curve;
+
+            osc1.type = 'sawtooth';
+            osc1.frequency.value = 800;
+            osc1.frequency.setValueAtTime(800, audioContext.currentTime);
+            osc1.frequency.exponentialRampToValueAtTime(2000, audioContext.currentTime + 0.1);
+
+            osc2.type = 'square';
+            osc2.frequency.value = 1200;
+            osc2.frequency.setValueAtTime(1200, audioContext.currentTime);
+            osc2.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.15);
+
+            gain.gain.value = 0.4;
+            gain.gain.setTargetAtTime(0.001, audioContext.currentTime, 0.1);
+
+            osc1.connect(distortion);
+            osc2.connect(distortion);
+            distortion.connect(gain);
+            gain.connect(masterGain);
+
+            osc1.start();
+            osc2.start();
+            osc1.stop(audioContext.currentTime + 0.2);
+            osc2.stop(audioContext.currentTime + 0.2);
+        }
+
+        // Door creak
+        function playCreak() {
+            if (!audioEnabled) return;
+
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            const filter = audioContext.createBiquadFilter();
+
+            osc.type = 'sawtooth';
+            osc.frequency.value = 100;
+            osc.frequency.setValueAtTime(100, audioContext.currentTime);
+            osc.frequency.linearRampToValueAtTime(300, audioContext.currentTime + 0.5);
+            osc.frequency.linearRampToValueAtTime(80, audioContext.currentTime + 1);
+
+            filter.type = 'bandpass';
+            filter.frequency.value = 500;
+            filter.Q.value = 10;
+
+            gain.gain.value = 0.1;
+            gain.gain.setTargetAtTime(0.001, audioContext.currentTime + 0.5, 0.3);
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(masterGain);
+
+            osc.start();
+            osc.stop(audioContext.currentTime + 1.5);
+        }
+
+        // Deep rumble
+        function playRumble() {
+            if (!audioEnabled) return;
+
+            const noiseBuffer = createNoise(3, 'brown');
+            const source = audioContext.createBufferSource();
+            const gain = audioContext.createGain();
+            const filter = audioContext.createBiquadFilter();
+
+            source.buffer = noiseBuffer;
+
+            filter.type = 'lowpass';
+            filter.frequency.value = 100;
+
+            gain.gain.value = 0;
+            gain.gain.setValueAtTime(0, audioContext.currentTime);
+            gain.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.5);
+            gain.gain.linearRampToValueAtTime(0, audioContext.currentTime + 2.5);
+
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(masterGain);
+
+            source.start();
+            source.stop(audioContext.currentTime + 3);
+        }
+
+        // Breathing sound
+        function playBreathing() {
+            if (!audioEnabled) return;
+
+            const noiseBuffer = createNoise(4, 'pink');
+            const source = audioContext.createBufferSource();
+            const gain = audioContext.createGain();
+            const filter = audioContext.createBiquadFilter();
+
+            source.buffer = noiseBuffer;
+
+            filter.type = 'lowpass';
+            filter.frequency.value = 800;
+
+            // Simulate breathing pattern
+            gain.gain.value = 0;
+            const breathDuration = 2;
+            gain.gain.setValueAtTime(0, audioContext.currentTime);
+            gain.gain.linearRampToValueAtTime(0.08, audioContext.currentTime + breathDuration * 0.4);
+            gain.gain.linearRampToValueAtTime(0.02, audioContext.currentTime + breathDuration * 0.5);
+            gain.gain.linearRampToValueAtTime(0.06, audioContext.currentTime + breathDuration * 0.9);
+            gain.gain.linearRampToValueAtTime(0, audioContext.currentTime + breathDuration);
+
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(masterGain);
+
+            // Pan to side
+            const panner = audioContext.createStereoPanner();
+            panner.pan.value = Math.random() > 0.5 ? 0.8 : -0.8;
+            gain.disconnect();
+            gain.connect(panner);
+            panner.connect(masterGain);
+
+            source.start();
+            source.stop(audioContext.currentTime + breathDuration);
+        }
+
+        // Glitch sound
+        function playGlitch() {
+            if (!audioEnabled) return;
+
+            const glitches = Math.floor(Math.random() * 5) + 3;
+
+            for (let i = 0; i < glitches; i++) {
+                setTimeout(() => {
+                    if (!audioEnabled) return;
+
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+
+                    osc.type = ['square', 'sawtooth', 'triangle'][Math.floor(Math.random() * 3)];
+                    osc.frequency.value = Math.random() * 2000 + 500;
+
+                    gain.gain.value = 0.1;
+
+                    osc.connect(gain);
+                    gain.connect(masterGain);
+
+                    osc.start();
+                    osc.stop(audioContext.currentTime + 0.02 + Math.random() * 0.05);
+                }, i * 50);
+            }
+        }
+
+        // ============================================
+        // VISUAL HORROR ELEMENTS
+        // ============================================
+
+        // ASCII horror faces
+        const asciifaces = [
+            `
+                        @@@@@@@@@@@@@@@@
+                    @@@@              @@@@
+                  @@                      @@
+                @@    @@@@        @@@@      @@
+              @@      @@@@        @@@@        @@
+              @@                              @@
+            @@          @@@@@@@@@@@@            @@
+            @@        @@            @@          @@
+            @@      @@                @@        @@
+              @@      @@@@@@@@@@@@@@@@        @@
+              @@                              @@
+                @@                          @@
+                  @@@@                  @@@@
+                      @@@@@@@@@@@@@@@@
+            `,
+            `
+            .     .       .  .   . .   .   . .    +  .
+              .     .  :     .    .. :. .___---------___.
+                   .  .   .    .  :.:. _".^ .^ ^.  '.. :"-_. .
+                .  :       .  .  .:../:            . .^  :.:\\.
+                    .   . :: +. :.:/: .   .    .        . . .::\\
+             .  :    .     . _ gy_:..    ..googly.eyes..  . . :\\
+              .. . .   . - : :.:.:.:.    W A T C H I N G   . :\\
+              .      .     . :..|:.:.:..: .   .   .  . :googly/
+                .       . : : ..!googly.googly.googly..:googly|
+              .     . . . . . :||:.:.eyeseyes..::googly:googl|
+            .   .     : . . . : || .:.:.......googlyg.::goo:
+               .  .  . . . : . : ||.: :.eyeseyeseyes:..: :..:
+                 . . . . . . . : .||.:.eyeseyes:..:.:.:.:.:.:
+            .   . .  . . : . .: .|||.:.eeeeyeseeyes.eeeeeee:
+              .   .   . . . . . ||||.:.:.:eeeeyeseyes.:.:.:
+            `,
+            `
+             ___====-_  _-====___
+           _--^^^#####//      \\\\#####^^^--_
+        _-^##########// (    ) \\\\##########^-_
+       -############//  |\\^^/|  \\\\############-
+     _/############//   (@::@)   \\\\############\\_
+    /#############((     \\\\//     ))#############\\
+   -###############\\\\    (oo)    //###############-
+  -#################\\\\  / VV \\  //#################-
+ -###################\\\\/      \\//###################-
+_#/|##########/\\######(   /\\   )######/\\##########|\\#_
+|/ |#/\\#/\\#/\\/  \\#/\\##\\  |  |  /##/\\#/  \\/\\#/\\#/\\#| \\|
+\`  |/  V  V  \`   V  \\#\\| |  | |/#/  V   '  V  V  \\|  '
+   \`   \`  \`      \`   / | |  | | \\   '      '  '   '
+                    (  | |  | |  )
+                   __\\ | |  | | /__
+                  (vvv(VVV)(VVV)vvv)
+            `,
+            `
+                      ,---.
+                     /    |
+                    /     |
+                   /      |
+                  ;  X  X |
+                  |   __  |
+                  | (    )|
+                 /|       |\\
+                / |       | \\
+               /  |       |  \\
+                  | _____ |
+                  ||     ||
+                  ||     ||
+                  THEY SEE YOU
+            `
+        ];
+
+        // Horror face symbols for quick flashes
+        const horrorSymbols = [':-)', ':-(', 'X_X', '=)', ':(', '>:(', '0_0', '@_@', 'RUN', 'HELP', 'BEHIND YOU', 'LOOK', 'NO EXIT'];
+
+        // Creepy crawl messages
+        const crawlMessages = [
+            "IT KNOWS WHERE YOU ARE",
+            "YOU CANNOT LEAVE",
+            "IT HAS ALWAYS BEEN HERE",
+            "THEY ARE WATCHING",
+            "RUN RUN RUN RUN RUN",
+            "DO NOT TRUST THE TERMINAL",
+            "YOU INVITED IT IN",
+            "THE WALLS REMEMBER",
+            "LEVEL -1 IS BELOW",
+            "THERE IS NO EXIT"
+        ];
+
+        // Entity warning messages
+        const entityWarnings = [
+            "ENTITY DETECTED",
+            "!! WARNING !!",
+            "IT SEES YOU",
+            "DO NOT MOVE",
+            "PROXIMITY ALERT",
+            "RUN NOW",
+            "TOO LATE"
+        ];
+
+        // ============================================
+        // HORROR TRIGGER FUNCTIONS
+        // ============================================
+
+        function triggerHorrorFace() {
+            const face = document.getElementById('horrorFace');
+            const content = document.getElementById('horrorFaceContent');
+            content.textContent = horrorSymbols[Math.floor(Math.random() * horrorSymbols.length)];
+            face.classList.add('active');
+            playScream();
+            setTimeout(() => face.classList.remove('active'), 150);
+        }
+
+        function triggerDistortedFace() {
+            const face = document.getElementById('distortedFace');
+            const ascii = document.getElementById('faceAscii');
+            ascii.textContent = asciifaces[Math.floor(Math.random() * asciifaces.length)];
+            face.classList.add('active');
+            playGlitch();
+            setTimeout(() => face.classList.remove('active'), 300);
+        }
+
+        function triggerStaticOverlay() {
+            const overlay = document.getElementById('staticOverlay');
+            overlay.classList.add('active');
+            playStatic();
+            setTimeout(() => overlay.classList.remove('active'), 500);
+        }
+
+        function triggerScreenTear() {
+            const tear = document.getElementById('screenTear');
+            tear.classList.add('active');
+            playGlitch();
+            setTimeout(() => tear.classList.remove('active'), 200);
+        }
+
+        function triggerCorruption() {
+            const corruption = document.getElementById('corruptionOverlay');
+            corruption.classList.add('active');
+            setTimeout(() => corruption.classList.remove('active'), 500);
+        }
+
+        function triggerWatchingEyes() {
+            const eyes = document.getElementById('watchingEyes');
+            eyes.style.top = Math.random() * 60 + 10 + '%';
+            eyes.style.left = Math.random() * 60 + 20 + '%';
+            eyes.classList.add('active');
+            playBreathing();
+            setTimeout(() => eyes.classList.remove('active'), 2000);
+        }
+
+        function triggerHandprint() {
+            const handprint = document.getElementById('handprint');
+            handprint.textContent = Math.random() > 0.5 ? '\u270B' : '\u270C';
+            handprint.style.top = Math.random() * 70 + 10 + '%';
+            handprint.style.left = Math.random() * 70 + 10 + '%';
+            handprint.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
+            handprint.classList.add('active');
+            setTimeout(() => handprint.classList.remove('active'), 3000);
+        }
+
+        function triggerTextCrawl() {
+            const crawl = document.getElementById('textCrawl');
+            crawl.textContent = crawlMessages[Math.floor(Math.random() * crawlMessages.length)];
+            crawl.style.top = Math.random() * 80 + 10 + '%';
+            crawl.classList.add('active');
+            playWhisper();
+            setTimeout(() => crawl.classList.remove('active'), 4000);
+        }
+
+        function triggerHeartbeat() {
+            const vignette = document.getElementById('heartbeatVignette');
+            vignette.classList.add('active');
+
+            // Play heartbeat sounds
+            playHeartbeat();
+            setTimeout(playHeartbeat, 1000);
+            setTimeout(playHeartbeat, 2000);
+
+            setTimeout(() => vignette.classList.remove('active'), 3000);
+        }
+
+        function triggerEntityWarning() {
+            const warning = document.getElementById('entityWarning');
+            warning.textContent = entityWarnings[Math.floor(Math.random() * entityWarnings.length)];
+            warning.classList.add('active');
+            playRumble();
+            setTimeout(() => warning.classList.remove('active'), 2000);
+        }
+
+        function triggerWatcher() {
+            const watcher = document.getElementById('watcherEntity');
+            watcher.style.left = Math.random() > 0.5 ? '5%' : '85%';
+            watcher.style.top = Math.random() * 30 + 20 + '%';
+            watcher.classList.add('active');
+            playCreak();
+            setTimeout(() => watcher.classList.remove('active'), 1500);
+        }
+
+        function triggerBloodDrip() {
+            const drip = document.getElementById('bloodDrip');
+            drip.style.left = Math.random() * 90 + 5 + '%';
+            drip.classList.add('active');
+            setTimeout(() => drip.classList.remove('active'), 3000);
+        }
+
+        // JUMPSCARE - Combines multiple effects
+        function triggerJumpscare() {
+            // Flash
+            triggerHorrorFace();
+
+            // Multiple effects cascade
+            setTimeout(triggerScreenTear, 100);
+            setTimeout(triggerStaticOverlay, 150);
+            setTimeout(() => {
+                triggerAggressiveFlicker();
+                playScream();
+            }, 200);
+        }
+
+        // Mild scare
+        function triggerMildScare() {
+            const scares = [
+                triggerWatchingEyes,
+                triggerTextCrawl,
+                triggerHandprint,
+                triggerWatcher,
+                triggerBloodDrip,
+                () => playFootsteps(),
+                () => playWhisper(),
+                () => playBreathing(),
+                () => playCreak()
+            ];
+            scares[Math.floor(Math.random() * scares.length)]();
+        }
+
+        // Medium scare
+        function triggerMediumScare() {
+            const scares = [
+                triggerDistortedFace,
+                triggerCorruption,
+                triggerScreenTear,
+                triggerEntityWarning,
+                triggerHeartbeat,
+                () => { triggerStaticOverlay(); playGlitch(); }
+            ];
+            scares[Math.floor(Math.random() * scares.length)]();
+        }
+
+        // ============================================
+        // MAIN APPLICATION CODE
+        // ============================================
+
         // API endpoint (proxies to n8n webhook securely)
         const API_ENDPOINT = '/api/chat';
 
@@ -844,11 +2038,13 @@
         const terminalTitle = document.getElementById('terminalTitle');
         const fluorescentOverlay = document.getElementById('fluorescentOverlay');
         const footerWarning = document.getElementById('footerWarning');
+        const audioPrompt = document.getElementById('audioPrompt');
 
         // Horror state
         let timeOnPage = 0;
         let currentLevel = Math.floor(Math.random() * 900) + 100;
         let horrorIntensity = 1;
+        let gameStarted = false;
 
         // Update level display
         levelIndicator.textContent = `LEVEL: ${currentLevel}`;
@@ -864,7 +2060,15 @@
             "I'm trying to help you.",
             "Trust me.",
             "Do you hear that humming?",
-            "The walls are watching."
+            "The walls are watching.",
+            "It's right behind you.",
+            "You should run now.",
+            "The lights are failing.",
+            "I can see you.",
+            "Don't make any noise.",
+            "It heard you.",
+            "There is no exit.",
+            "You've always been here."
         ];
 
         // Subliminal messages
@@ -878,7 +2082,13 @@
             "THEY KNOW",
             "STAY",
             "NO ESCAPE",
-            "=)"
+            "=)",
+            "HELP ME",
+            "IT HURTS",
+            "FOREVER",
+            "JOIN US",
+            "TRUST NO ONE",
+            "THE WALLS HAVE EYES"
         ];
 
         // Changing terminal titles
@@ -887,9 +2097,13 @@
             "TERMINAL_404 // LOCATION UNKNOWN",
             "TERMINAL_404 // HELP REQUESTED",
             "TERMINAL_404 // ENTITY NEARBY",
-            "TERMINAL_??? // ████████████",
+            "TERMINAL_??? // @@@@@@@@@@@@",
             "TERMINAL_404 // DO NOT TRUST",
-            "TERMINAL_404 // KEEP MOVING"
+            "TERMINAL_404 // KEEP MOVING",
+            "TERMINAL_404 // IT CAN HEAR YOU",
+            "TERMINAL_666 // PROXIMITY ALERT",
+            "TERMINAL_ERR // [REDACTED]",
+            "TERMINAL_404 // RUN"
         ];
 
         // Placeholder text that changes
@@ -903,8 +2117,24 @@
             "don't stop typing...",
             "hello?",
             "anyone?",
-            "which way?"
+            "which way?",
+            "please...",
+            "i can hear it",
+            "the lights are dying",
+            "behind you",
+            "run"
         ];
+
+        // Audio prompt click handler
+        audioPrompt.addEventListener('click', () => {
+            initAudio();
+            audioPrompt.style.display = 'none';
+            gameStarted = true;
+
+            // Initial ambient sounds
+            setTimeout(() => playFootsteps(), 3000);
+            setTimeout(() => playWhisper(), 8000);
+        });
 
         function getTimestamp() {
             const now = new Date();
@@ -914,7 +2144,7 @@
 
             // Sometimes glitched timestamps
             if (Math.random() < 0.1 * horrorIntensity) {
-                const glitched = ['??:??:??', '00:00:00', `${currentLevel}:${currentLevel}:${currentLevel}`];
+                const glitched = ['??:??:??', '00:00:00', `${currentLevel}:${currentLevel}:${currentLevel}`, '66:66:66', 'ER:RO:R'];
                 return glitched[Math.floor(Math.random() * glitched.length)];
             }
 
@@ -943,6 +2173,14 @@
             // Chance of entity appearing after message
             if (Math.random() < 0.2 * horrorIntensity) {
                 setTimeout(triggerEntityGlimpse, 500);
+            }
+
+            // Chance of audio scare
+            if (Math.random() < 0.15 * horrorIntensity && audioEnabled) {
+                setTimeout(() => {
+                    const sounds = [playWhisper, playBreathing, playFootsteps];
+                    sounds[Math.floor(Math.random() * sounds.length)]();
+                }, 1000);
             }
         }
 
@@ -975,24 +2213,28 @@
         function triggerSubliminal() {
             subliminal.textContent = subliminalMessages[Math.floor(Math.random() * subliminalMessages.length)];
             subliminal.style.display = 'flex';
+            if (audioEnabled) playGlitch();
             setTimeout(() => subliminal.style.display = 'none', 80);
         }
 
         // Blackout
         function triggerBlackout() {
             blackout.style.display = 'block';
+            if (audioEnabled) playStatic();
             setTimeout(() => blackout.style.display = 'none', Math.random() * 300 + 100);
         }
 
         // No-clip phase effect
         function triggerNoclip() {
             noclipOverlay.style.display = 'block';
+            if (audioEnabled) playRumble();
             setTimeout(() => noclipOverlay.style.display = 'none', 300);
         }
 
         // Aggressive light flicker
         function triggerAggressiveFlicker() {
             fluorescentOverlay.style.animation = 'aggressiveFlicker 0.5s ease-out';
+            if (audioEnabled) playStatic();
             setTimeout(() => {
                 fluorescentOverlay.style.animation = 'fluorescentFlicker 0.1s infinite';
             }, 500);
@@ -1005,50 +2247,63 @@
             if (currentLevel < 0) currentLevel = Math.abs(currentLevel);
             levelIndicator.textContent = `LEVEL: ${currentLevel}`;
             addSystemMessage(`[LEVEL SHIFT DETECTED: NOW AT LEVEL ${currentLevel}]`);
+            if (audioEnabled) playRumble();
         }
 
         // Fake exit click
         function fakeExit() {
             triggerNoclip();
+            if (audioEnabled) playScream();
             setTimeout(() => {
                 shiftLevel();
                 addSystemMessage("[EXIT FAILED: RETURNING TO PREVIOUS LOCATION]");
+                triggerEntityWarning();
             }, 500);
         }
 
-        // Random horror event
+        // Random horror event - ENHANCED
         function triggerRandomHorror() {
             const roll = Math.random();
+            const intensity = horrorIntensity;
 
-            if (roll < 0.1 * horrorIntensity) {
+            // Jumpscares are rare but increase with intensity
+            if (roll < 0.02 * intensity && intensity > 1.5) {
+                triggerJumpscare();
+            } else if (roll < 0.08 * intensity) {
+                triggerMediumScare();
+            } else if (roll < 0.15 * intensity) {
+                triggerMildScare();
+            } else if (roll < 0.2 * intensity) {
                 triggerSubliminal();
-            } else if (roll < 0.2 * horrorIntensity) {
+            } else if (roll < 0.25 * intensity) {
                 triggerBlackout();
-            } else if (roll < 0.3 * horrorIntensity) {
+            } else if (roll < 0.3 * intensity) {
                 triggerEntityGlimpse();
-            } else if (roll < 0.4 * horrorIntensity) {
+            } else if (roll < 0.35 * intensity) {
                 triggerAggressiveFlicker();
-            } else if (roll < 0.45 * horrorIntensity) {
+            } else if (roll < 0.4 * intensity) {
                 shiftLevel();
             }
         }
 
         // Update various elements over time
         function updateEnvironment() {
+            if (!gameStarted) return;
+
             timeOnPage++;
 
-            // Increase intensity
-            if (timeOnPage % 45 === 0 && horrorIntensity < 2.5) {
-                horrorIntensity += 0.2;
+            // Increase intensity over time
+            if (timeOnPage % 45 === 0 && horrorIntensity < 3) {
+                horrorIntensity += 0.15;
             }
 
-            // Random events
-            if (Math.random() < 0.02 * horrorIntensity) {
+            // Random events - more frequent with higher intensity
+            if (Math.random() < 0.025 * horrorIntensity) {
                 triggerRandomHorror();
             }
 
             // Change terminal title
-            if (Math.random() < 0.01 * horrorIntensity) {
+            if (Math.random() < 0.015 * horrorIntensity) {
                 terminalTitle.textContent = terminalTitles[Math.floor(Math.random() * terminalTitles.length)];
             }
 
@@ -1058,8 +2313,15 @@
             }
 
             // Entity messages sometimes appear unprompted
-            if (timeOnPage > 60 && Math.random() < 0.005 * horrorIntensity) {
+            if (timeOnPage > 45 && Math.random() < 0.008 * horrorIntensity) {
                 addMessage(entityMessages[Math.floor(Math.random() * entityMessages.length)], 'bot');
+                if (audioEnabled) playWhisper();
+            }
+
+            // Random audio events
+            if (audioEnabled && Math.random() < 0.01 * horrorIntensity) {
+                const sounds = [playFootsteps, playWhisper, playBreathing, playCreak];
+                sounds[Math.floor(Math.random() * sounds.length)]();
             }
         }
 
@@ -1074,7 +2336,7 @@
             setTyping(true);
 
             // Random horror during wait
-            if (Math.random() < 0.25 * horrorIntensity) {
+            if (Math.random() < 0.3 * horrorIntensity) {
                 setTimeout(triggerRandomHorror, 800);
             }
 
@@ -1102,6 +2364,7 @@
             } catch (error) {
                 setTyping(false);
                 addMessage(`TRANSMISSION FAILED: ${error.message}`, 'error');
+                if (audioEnabled) playStatic();
             }
 
             sendButton.disabled = false;
@@ -1114,25 +2377,64 @@
             if (e.key === 'Enter') sendMessage();
         });
 
-        messageInput.focus();
-
         // Start environment updates
         setInterval(updateEnvironment, 1000);
 
-        // Initial delayed events
-        setTimeout(triggerEntityGlimpse, 5000);
-        setTimeout(triggerSubliminal, 12000);
-        setTimeout(triggerAggressiveFlicker, 20000);
+        // Initial delayed events - only after game starts
+        setTimeout(() => {
+            if (gameStarted) {
+                triggerEntityGlimpse();
+            }
+        }, 5000);
+
+        setTimeout(() => {
+            if (gameStarted) {
+                triggerSubliminal();
+            }
+        }, 12000);
+
+        setTimeout(() => {
+            if (gameStarted) {
+                triggerAggressiveFlicker();
+            }
+        }, 20000);
+
+        setTimeout(() => {
+            if (gameStarted) {
+                triggerMildScare();
+            }
+        }, 30000);
+
+        setTimeout(() => {
+            if (gameStarted) {
+                triggerMediumScare();
+            }
+        }, 60000);
 
         // Random glitch scheduler
         function scheduleGlitch() {
-            const delay = (Math.random() * 25000 + 15000) / horrorIntensity;
+            const delay = (Math.random() * 20000 + 10000) / horrorIntensity;
             setTimeout(() => {
-                triggerRandomHorror();
+                if (gameStarted) {
+                    triggerRandomHorror();
+                }
                 scheduleGlitch();
             }, delay);
         }
         scheduleGlitch();
+
+        // Schedule random audio events
+        function scheduleAudio() {
+            const delay = Math.random() * 30000 + 15000;
+            setTimeout(() => {
+                if (gameStarted && audioEnabled) {
+                    const sounds = [playFootsteps, playWhisper, playBreathing, playCreak, playRumble];
+                    sounds[Math.floor(Math.random() * sounds.length)]();
+                }
+                scheduleAudio();
+            }, delay);
+        }
+        scheduleAudio();
 
         // Make exit function global
         window.fakeExit = fakeExit;
